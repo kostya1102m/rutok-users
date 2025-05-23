@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, Boolean, Text, TIMESTAMP, ForeignKey, LargeBinary
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, DeclarativeBase
+from sqlalchemy.ext.asyncio import AsyncAttrs
 
-Base = declarative_base()
+class Base(AsyncAttrs, DeclarativeBase):
+    __abstract__ = True
 
 class Role(Base):
     __tablename__ = "roles"
