@@ -1,0 +1,9 @@
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1102
+      POSTGRES_DB: rutok_users
+    ports:
+      - "5432:5432"
