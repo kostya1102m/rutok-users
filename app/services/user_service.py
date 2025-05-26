@@ -2,7 +2,7 @@ import logging
 from fastapi import HTTPException
 from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import IntegrityError, DataError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
@@ -82,7 +82,7 @@ class UserService:
         except ValidationError as e:
             logger.error("Ошибка валидации при создании пользователя: %s", e.errors())
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=e.errors())
-        except DataError as e:
+        except SQLAlchemyError as e:
             logger.error("Ошибка данных при создании пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
         except Exception as e:

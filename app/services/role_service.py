@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import IntegrityError, DataError
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
