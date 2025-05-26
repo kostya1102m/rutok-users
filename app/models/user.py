@@ -29,6 +29,3 @@ class UserResponse(BaseModel):
     created_at: datetime
     updated_at: Optional[datetime]
     role_id: int
-
-    class Config:
-        orm_mode = True
