@@ -1,0 +1,41 @@
+[2025-05-27 01:50:55.945] logging_settings:53  INFO    Логирование настроено с выводом в C:\Users\mercury\Documents\GitHub\rutok-users\app\logs\app.log
+[2025-05-27 01:50:55.945] logging_settings:54  INFO    Текущая рабочая директория: C:\Users\mercury\Documents\GitHub\rutok-users\app
+[2025-05-27 01:51:17.119] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:51:17.120] user_service:50  INFO    Получение всех пользователей
+[2025-05-27 01:51:44.748] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:51:44.756] user_service:23  INFO    Получение пользователя с id 5
+[2025-05-27 01:51:58.166] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:51:58.168] user_service:109 INFO    Удаление пользователя с id 100
+[2025-05-27 01:52:28.997] logging_settings:53  INFO    Логирование настроено с выводом в C:\Users\mercury\Documents\GitHub\rutok-users\app\logs\app.log
+[2025-05-27 01:52:29.029] logging_settings:54  INFO    Текущая рабочая директория: C:\Users\mercury\Documents\GitHub\rutok-users\app
+[2025-05-27 01:52:29.219] logging_settings:53  INFO    Логирование настроено с выводом в C:\Users\mercury\Documents\GitHub\rutok-users\app\logs\app.log
+[2025-05-27 01:52:29.219] logging_settings:54  INFO    Текущая рабочая директория: C:\Users\mercury\Documents\GitHub\rutok-users\app
+[2025-05-27 01:54:03.304] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:54:03.304] user_service:109 INFO    Удаление пользователя с id 5
+[2025-05-27 01:54:03.492] user_service:111 INFO    Пользователь удалён: id=5, имя пользователя=Паша, email=user1@example.com
+[2025-05-27 01:54:21.645] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:54:21.674] user_service:109 INFO    Удаление пользователя с id 10000000000000000000000000000000
+[2025-05-27 01:55:29.071] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:55:29.184] user_service:57  INFO    Создание пользователя с email user@example.com
+[2025-05-27 01:55:29.198] user_service:89  ERROR   Непредвиденная ошибка при создании пользователя: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 1000000000000000000000000000000000000000... (value out of int32 range)
+[SQL: SELECT roles.id, roles.role_name, roles.role_description 
+FROM roles 
+WHERE roles.id = $1::INTEGER]
+[parameters: (10000000000000000000000000000000000000000000000000000000000,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+[2025-05-27 01:56:58.918] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:56:58.927] user_service:57  INFO    Создание пользователя с email user@example.com
+[2025-05-27 01:56:59.067] user_service:86  ERROR   Ошибка данных при создании пользователя: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 1000000000000000000000000000000000000000... (value out of int32 range)
+[SQL: SELECT roles.id, roles.role_name, roles.role_description 
+FROM roles 
+WHERE roles.id = $1::INTEGER]
+[parameters: (10000000000000000000000000000000000000000000000000,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+[2025-05-27 01:58:09.574] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 01:58:09.586] user_service:57  INFO    Создание пользователя с email user@example.com
+[2025-05-27 01:58:09.970] user_service:86  ERROR   Ошибка данных при создании пользователя: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 10000000000000000000000000000000 (value out of int32 range)
+[SQL: SELECT roles.id, roles.role_name, roles.role_description 
+FROM roles 
+WHERE roles.id = $1::INTEGER]
+[parameters: (10000000000000000000000000000000,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
