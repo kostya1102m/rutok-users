@@ -72,7 +72,7 @@ class RoleRepository:
         session: AsyncSession
     ):
         try:
-            user = UserRepository().get_by_id(user_id, session)
+            user = await UserRepository().get_by_id(user_id, session)
             if user is None:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {user_id} не найден")
             role = self.get_by_id(role_id, session)
