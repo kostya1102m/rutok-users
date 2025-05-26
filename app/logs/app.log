@@ -39,3 +39,44 @@ FROM roles
 WHERE roles.id = $1::INTEGER]
 [parameters: (10000000000000000000000000000000,)]
 (Background on this error at: https://sqlalche.me/e/20/dbapi)
+[2025-05-27 02:12:35.636] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 02:12:35.656] user_service:23  INFO    Получение пользователя с id 1
+[2025-05-27 02:12:35.802] user_service:26  WARNING Пользователь с id 1 не найден
+[2025-05-27 02:12:40.240] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 02:12:40.245] user_service:23  INFO    Получение пользователя с id 3
+[2025-05-27 02:12:40.254] user_service:26  WARNING Пользователь с id 3 не найден
+[2025-05-27 02:12:42.417] user_service:20  INFO    Сервис пользователей инициализирован
+[2025-05-27 02:12:42.419] user_service:23  INFO    Получение пользователя с id 4
+[2025-05-27 04:49:31] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:49:31] user_service:119 ERROR   Ошибка данных при создании пользователя: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 1000000000000000000000000000000000000000... (value out of int32 range)
+[SQL: SELECT roles.id, roles.role_name, roles.role_description 
+FROM roles 
+WHERE roles.id = $1::INTEGER]
+[parameters: (1000000000000000000000000000000000000000000000000000,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+[2025-05-27 04:50:37] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:50:38] user_service:119 ERROR   Ошибка данных при создании пользователя: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 1000000000000000000000000000000000000000... (value out of int32 range)
+[SQL: SELECT roles.id, roles.role_name, roles.role_description 
+FROM roles 
+WHERE roles.id = $1::INTEGER]
+[parameters: (1000000000000000000000000000000000000000000000000000,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+[2025-05-27 04:51:58] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:51:59] user_service:86  WARNING Роль с id 0 не найдена при создании пользователя
+[2025-05-27 04:51:59] user_service:123 ERROR   Непредвиденная ошибка сервера: 400: Роль с id 0 не найдена
+[2025-05-27 04:52:08] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:52:08] user_service:119 ERROR   Ошибка данных при создании пользователя: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: 1000000000000000000000000000000000000 (value out of int32 range)
+[SQL: SELECT roles.id, roles.role_name, roles.role_description 
+FROM roles 
+WHERE roles.id = $1::INTEGER]
+[parameters: (1000000000000000000000000000000000000,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+[2025-05-27 04:55:32] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:55:32] user_service:86  WARNING Роль с id 0 не найдена при создании пользователя
+[2025-05-27 04:55:32] user_service:123 ERROR   Непредвиденная ошибка сервера: 400: Роль с id 0 не найдена
+[2025-05-27 04:55:34] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:55:34] user_service:86  WARNING Роль с id 0 не найдена при создании пользователя
+[2025-05-27 04:55:34] user_service:123 ERROR   Непредвиденная ошибка сервера: 400: Роль с id 0 не найдена
+[2025-05-27 04:57:50] user_service:81  INFO    Создание пользователя с email user@example.com
+[2025-05-27 04:57:50] user_service:86  WARNING Роль с id 0 не найдена при создании пользователя
+[2025-05-27 04:57:50] user_service:123 ERROR   400: Роль с id 0 не найдена
