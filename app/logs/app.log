@@ -117,3 +117,8 @@ WHERE roles.id = $1::INTEGER]
 [2025-05-27 06:02:51] user_service:83  WARNING Пользователь с email email не найден
 [2025-05-27 06:07:30] user_service:80  INFO    Получение пользователя с email 3213
 [2025-05-27 06:07:30] user_service:83  WARNING Пользователь с email 3213 не найден
+[2025-05-27 07:44:44] user_service:125 INFO    Создание пользователя с email mikhailov.kn@dvfu.ru
+[2025-05-27 07:44:44] user_service:130 WARNING Роль с id 0 не найдена при создании пользователя
+[2025-05-27 07:44:44] user_service:155 WARNING 400: Роль с id 0 не найдена
+[2025-05-27 07:44:53] user_service:125 INFO    Создание пользователя с email mikhailov.kn@dvfu.ru
+[2025-05-27 07:44:53] user_service:142 INFO    Пользователь создан: id=6, username=mercury, email=mikhailov.kn@dvfu.ru
