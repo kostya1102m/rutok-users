@@ -3,10 +3,25 @@ from logging.handlers import RotatingFileHandler
 import os
 
 class SQLAlchemyFilter(logging.Filter):
+    """
+    Фильтр для отключения логирования SQLAlchemy
+    (очень громоздко, можем просто возвращать traceback)
+    """
     def filter(self, record):
         return not record.name.startswith('sqlalchemy.engine')
+    
+    
+class SensitiveDataFilter(logging.Filter):
+    """
+    Фильтр для отключения логирования паролей
+    """
+    def filter(self, record):
+        return not "hash_password" in record.getMessage()
 
 def configure_logging(level=logging.INFO):
+    """
+    Конфигурация логирования
+    """
     logging.getLogger('').handlers.clear()
 
     log_dir = "logs"
@@ -15,7 +30,7 @@ def configure_logging(level=logging.INFO):
     
     log_file = os.path.join(log_dir, "app.log")
     
-    log_format = "[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s %(message)s"
+    log_format = "[%(asctime)s] %(module)10s:%(lineno)-3d %(levelname)-7s %(message)s"
     date_format = "%Y-%m-%d %H:%M:%S"
     
     formatter = logging.Formatter(log_format, datefmt=date_format)
@@ -28,6 +43,7 @@ def configure_logging(level=logging.INFO):
     )
     file_handler.setFormatter(formatter)
     file_handler.addFilter(SQLAlchemyFilter())
+    file_handler.addFilter(SensitiveDataFilter())
     
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
