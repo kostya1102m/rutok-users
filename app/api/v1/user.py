@@ -49,7 +49,7 @@ async def get_user_by_username(
 ):
     return await user_service.get_user_by_username(username, session)
 
-@router.post("/user/create", status_code=status.HTTP_201_CREATED)
+@router.post("/create", status_code=status.HTTP_201_CREATED)
 async def create_user(
     userCreate: UserCreate,
     session: AsyncSession = Depends(get_db),
@@ -57,7 +57,7 @@ async def create_user(
 ):
     return await user_service.create_user(userCreate, session)
 
-@router.delete("/user/delete/{id}", status_code=status.HTTP_200_OK)
+@router.delete("/delete/{id}", status_code=status.HTTP_200_OK)
 async def delete_user_by_id(
     id: int,
     session: AsyncSession = Depends(get_db),
@@ -65,7 +65,7 @@ async def delete_user_by_id(
 ):
     return await user_service.delete_user_by_id(id, session)
 
-@router.put("/user/ban/{id}", status_code=status.HTTP_200_OK)
+@router.put("/ban/{id}", status_code=status.HTTP_200_OK)
 async def ban_user_by_id(
     id: int,
     session: AsyncSession = Depends(get_db),
