@@ -2,7 +2,7 @@ import logging
 from fastapi import HTTPException
 from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
@@ -36,8 +36,8 @@ class UserService:
             raise e
         
         except SQLAlchemyError:
-            logger.error("Недопустимый тип значения : id=%s", id)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимый тип значения : id={id}")
+            logger.error("Недопустимое значение : id=%s", id)
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={id}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -63,8 +63,8 @@ class UserService:
             raise e
         
         except SQLAlchemyError:
-            logger.error("Недопустимый тип значения : username=%s", name)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимый тип значения : username={name}")
+            logger.error("Недопустимое значение : username=%s", name)
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : username={name}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -89,8 +89,8 @@ class UserService:
             raise e
         
         except SQLAlchemyError:
-            logger.error("Недопустимый тип значения : email=%s", email)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимый тип значения : email={email}")
+            logger.error("Недопустимое значение : email=%s", email)
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : email={email}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -101,7 +101,7 @@ class UserService:
         session: AsyncSession
     ):
         try:
-            logger.info("Получение всех пользователей")
+            logger.info("Получение списка всех пользователей")
             users = await self.repository.get_all(session)
             if users is None:
                 logger.warning("Пользователи не найдены")
@@ -132,11 +132,6 @@ class UserService:
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail=f"Роль с id {userCreate.role_id} не найдена"
                 )
-            existing_user = await self.repository.get_by_email(userCreate.email, session)
-            
-            if existing_user:
-                logger.warning("Email %s уже зарегистрирован", userCreate.email)
-                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Email {userCreate.email} уже зарегистрирован")
             
             user = await self.repository.create(userCreate, session)
             logger.info("Пользователь создан: id=%s, username=%s, email=%s", user.id, user.username, user.email)
