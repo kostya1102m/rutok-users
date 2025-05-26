@@ -25,7 +25,7 @@ async def get_users(
 ):
     return await user_service.get_user_all(session)
 
-@router.get("/user/{id}")
+@router.get("/{id}")
 async def get_user_by_id(
     id: int,
     session: AsyncSession = Depends(get_db),
