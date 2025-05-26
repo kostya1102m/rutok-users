@@ -1,6 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from starlette import status
 from datetime import datetime
@@ -46,11 +46,15 @@ class UserRepository:
         userCreate: UserCreate,
         session: AsyncSession
     ):
-        new_user = User(**userCreate.model_dump())
-        session.add(new_user)
-        await session.commit()
-        await session.refresh(new_user)
-        return new_user
+        try:
+            new_user = User(**userCreate.model_dump())
+            session.add(new_user)
+            await session.commit()
+            await session.refresh(new_user)
+            return new_user
+        except IntegrityError:
+            await session.rollback()
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Пользователь с email {userCreate.email} уже зарегистрирован")
     
     async def update(
         self,

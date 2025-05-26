@@ -21,12 +21,10 @@ class RoleRepository:
             await session.commit()
             await session.refresh(new_role)
             return new_role
-        except IntegrityError as e:
+        
+        except IntegrityError:
             await session.rollback()
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e.args[0])
-        except Exception as e:
-            await session.rollback()
-            raise e
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Роль с именем {roleCreate.role_name} уже существует")
 
     async def get_by_id(
         self,
@@ -45,18 +43,17 @@ class RoleRepository:
         session: AsyncSession
     ):
         try:
-            role = await self.get_by_id(id, session)
-            if role is None:
+            result = await session.execute(select(Role).where(Role.id == id))
+            role = result.scalars().first()
+            if not role:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Роль с id {id} не найдена")
             await session.delete(role)
             await session.commit()
             return role
-        except IntegrityError as e:
+        
+        except IntegrityError:
             await session.rollback()
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e.args[0])
-        except Exception as e:
-            await session.rollback()
-            raise e
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Роль распределена пользователям и не может быть удалена")
     
     async def get_all(
         self,
@@ -71,21 +68,14 @@ class RoleRepository:
         role_id: int,
         session: AsyncSession
     ):
-        try:
-            user = await UserRepository().get_by_id(user_id, session)
-            if user is None:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {user_id} не найден")
-            role = self.get_by_id(role_id, session)
-            if role is None:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Роль с id {role_id} не найдена")
-            user.role_id = role_id
-            await session.commit()
-            await session.refresh(user)
-            return user
-        except IntegrityError as e:
-            await session.rollback()
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e.args[0])
-        except Exception as e:
-            await session.rollback()
-            raise e
+        user = await UserRepository().get_by_id(user_id, session)
+        if user is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {user_id} не найден")
+        role = self.get_by_id(role_id, session)
+        if role is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Роль с id {role_id} не найдена")
+        user.role_id = role_id
+        await session.commit()
+        await session.refresh(user)
+        return user
     
