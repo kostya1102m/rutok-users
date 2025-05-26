@@ -105,6 +105,7 @@ class UserRepository:
             await session.delete(user)
             await session.commit()
             return user
+        
         except IntegrityError as e:
             await session.rollback()
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e.args[0])

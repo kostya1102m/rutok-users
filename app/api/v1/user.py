@@ -13,7 +13,7 @@ router = APIRouter(
     tags=["User"],
 )
 
-def get_user_service():
+async def get_user_service():
     user_repository = UserRepository()
     return UserService(user_repository)
 
