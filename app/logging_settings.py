@@ -18,12 +18,12 @@ class SensitiveDataFilter(logging.Filter):
     def filter(self, record):
         return not "hash_password" in record.getMessage()
 
-def configure_logging(level=logging.INFO):
+def configure_logging(level=logging.DEBUG):
     """
     Конфигурация логирования
     """
-    logging.getLogger('').handlers.clear()
-
+    logging.getLogger('').handlers.clear()   
+    
     log_dir = "logs"
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
@@ -54,12 +54,11 @@ def configure_logging(level=logging.INFO):
     )
     
     sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
-    sqlalchemy_logger.setLevel(logging.INFO) 
-    sqlalchemy_logger.handlers = [console_handler] 
+    sqlalchemy_logger.setLevel(logging.DEBUG)
     sqlalchemy_logger.propagate = False
     
     logger = logging.getLogger(__name__)
     return logger
 
-if __name__ == "__main__":
-    configure_logging()
+# if __name__ == "__main__":
+#     configure_logging()
