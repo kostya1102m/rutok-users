@@ -2,7 +2,6 @@ from fastapi import HTTPException
 from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
 import logging
@@ -144,8 +143,9 @@ class RoleService:
             raise e
         
         except SQLAlchemyError:
-            logger.error("Недопустимое значение : id=%s", )
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={user_id}")
+            unexcepted_id = user_id if abs(user_id) > abs(role_id) else role_id
+            logger.error("Недопустимое значение : id=%s", unexcepted_id)
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={unexcepted_id}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
