@@ -6,7 +6,7 @@ import logging
 
 app = FastAPI()
 
-configure_logging()
+configure_logging(level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 
