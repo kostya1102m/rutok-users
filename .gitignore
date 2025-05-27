@@ -2,3 +2,4 @@ alembic.ini
 .env
 .venv/
 __pycache__
+.idea
