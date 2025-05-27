@@ -7,7 +7,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     hash_password: str
     phone: Optional[str] = None
-    role_id: int
+    role_id: int = 5 
     created_at: datetime = datetime.now()
     
     @field_validator('email')
