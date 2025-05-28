@@ -25,7 +25,7 @@ async def get_roles(
 ):
     return await role_service.get_role_all(session)
 
-@router.get("/role/{id}")
+@router.get("/{id}")
 async def get_role_by_id(
     id: int,
     session: AsyncSession = Depends(get_db),
@@ -33,7 +33,7 @@ async def get_role_by_id(
 ):
     return await role_service.get_role_by_id(id, session)
 
-@router.post("/role/create", status_code=status.HTTP_201_CREATED)
+@router.post("/create", status_code=status.HTTP_201_CREATED)
 async def create_role(
     roleCreate: RoleCreate,
     session: AsyncSession = Depends(get_db),
@@ -41,7 +41,7 @@ async def create_role(
 ):
     return await role_service.create_role(roleCreate, session)
 
-@router.delete("/role/delete/{id}", status_code=status.HTTP_200_OK)
+@router.delete("/delete/{id}", status_code=status.HTTP_200_OK)
 async def delete_role_by_id(
     id: int,
     session: AsyncSession = Depends(get_db),
@@ -49,7 +49,7 @@ async def delete_role_by_id(
 ):
     return await role_service.delete_role(id, session)
 
-@router.put("/role/set/{user_id}/{role_id}", status_code=status.HTTP_200_OK)
+@router.put("/set/{user_id}/{role_id}", status_code=status.HTTP_200_OK)
 async def set_user_role(
     user_id: int,
     role_id: int,
