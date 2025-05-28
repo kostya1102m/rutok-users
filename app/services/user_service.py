@@ -7,9 +7,11 @@ from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
 
-from models.user import UserCreate, UserUpdate
+from models.user import UserCreate, UserRegister, UserUpdate
 from repository.user_repository import UserRepository
 from db.tables import Role
+import utils
+
 
 logger = logging.getLogger(__name__)
 
@@ -116,22 +118,32 @@ class UserService:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-    async def create_user(
+    async def register_user(
         self,
-        userCreate: UserCreate,
+        userRegister: UserRegister,
         session: AsyncSession
     ):
         try:
-            logger.info("Создание пользователя с email %s", userCreate.email)
-            role = await session.execute(select(Role).filter(Role.id == userCreate.role_id))
-            role = role.scalar_one_or_none()
+            logger.info("Создание пользователя с email %s", userRegister.email)
             
-            if role is None:
-                logger.warning("Роль с id %s не найдена при создании пользователя", userCreate.role_id)
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=f"Роль с id {userCreate.role_id} не найдена"
-                )
+            pwd = (userRegister.password)
+            hashed_pwd = utils.hash_password(pwd)
+            
+            userCreate = UserCreate(
+                username=userRegister.username,
+                email=userRegister.email,
+                hash_password=hashed_pwd,
+            )
+            
+            # role = await session.execute(select(Role).filter(Role.id == userCreate.role_id))
+            # role = role.scalar_one_or_none()
+            
+            # if role is None:
+            #     logger.warning("Роль с id %s не найдена при создании пользователя", userCreate.role_id)
+            #     raise HTTPException(
+            #         status_code=status.HTTP_400_BAD_REQUEST,
+            #         detail=f"Роль с id {userCreate.role_id} не найдена"
+            #     )
             
             user = await self.repository.create(userCreate, session)
             logger.info("Пользователь создан: id=%s, username=%s, email=%s", user.id, user.username, user.email)
@@ -149,11 +161,10 @@ class UserService:
         except HTTPException as e:
             logger.warning('%s', str(e))
             raise e
-        
-        except ValidationError as e:
-            logger.error("Ошибка валидации при создании пользователя: %s", e.errors())
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                                detail=e.errors())
+        # except ValueError as e:
+        #     logger.error("Ошибка валидации при создании пользователя: %s", e)
+        #     raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        #                         detail=e)
         except SQLAlchemyError as e:
             logger.error("Конфликт данных при создании пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
