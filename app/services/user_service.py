@@ -1,13 +1,12 @@
 import logging
 from fastapi import HTTPException
-from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
 
-from models.user import UserCreate, UserRegister, UserUpdate
+from models.user import UserCreate, UserRegister, UserUpdate, UserSchema
 from repository.user_repository import UserRepository
 from db.tables import Role
 import utils
@@ -161,10 +160,7 @@ class UserService:
         except HTTPException as e:
             logger.warning('%s', str(e))
             raise e
-        # except ValueError as e:
-        #     logger.error("Ошибка валидации при создании пользователя: %s", e)
-        #     raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        #                         detail=e)
+        
         except SQLAlchemyError as e:
             logger.error("Конфликт данных при создании пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
@@ -175,17 +171,20 @@ class UserService:
 
     async def update_user(self, id: int, userUpdate: UserUpdate, session: AsyncSession):
         try:
-            logger.info("Обновление пользователя с id %s", id)
+            logger.info("Обновление информации пользователя с id %s", id)
             user = await self.repository.update(id, userUpdate, session)
-            logger.info("Пользователь обновлён: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Информация обновлена: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+        
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
                 content={
-                    "detail": "Пользователь обновлен",
+                    "detail": "Информация обновлена",
                     "user": {
                         "id": user.id,
                         "username": user.username,
-                        "email": user.email
+                        "email": user.email,
+                        "phone": user.phone,
+                        "bio": user.bio
                     }
                 }
             )
@@ -194,10 +193,6 @@ class UserService:
             logger.warning('%s', str(e))
             raise e
         
-        except ValidationError as e:
-            logger.error("Ошибка валидации при обновлении пользователя: %s", e.errors())
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                                detail=e.errors())
         except SQLAlchemyError as e:
             logger.error("Конфликт данных при обновлении пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
