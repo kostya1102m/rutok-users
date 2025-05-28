@@ -211,3 +211,42 @@ WHERE roles.id = $1::INTEGER]
 [2025-05-27 12:56:15] role_service:147 ERROR   Недопустимое значение : id=20000000000000000000000000000000
 [2025-05-27 12:56:18] role_service:129 INFO    Изменение роли пользователя с id -20000000000000000000000000000000
 [2025-05-27 12:56:19] role_service:147 ERROR   Недопустимое значение : id=-20000000000000000000000000000000
+[2025-05-29 07:59:21] user_service:27  INFO    Получение пользователя с id 1
+[2025-05-29 07:59:22] user_service:30  WARNING Пользователь с id 1 не найден
+[2025-05-29 07:59:29] user_service:27  INFO    Получение пользователя с id 6
+[2025-05-29 07:59:29] user_service:33  DEBUG   Получен пользователь: id=6, username=mercury
+[2025-05-29 08:00:43] user_service:105 INFO    Получение списка всех пользователей
+[2025-05-29 08:00:43] user_service:110 DEBUG   Получено 3 пользователей
+[2025-05-29 08:32:29] user_service:127 INFO    Создание пользователя с email user@example.com
+[2025-05-29 08:35:17] user_service:127 INFO    Создание пользователя с email user@example.com
+[2025-05-29 08:35:18] user_service:162 WARNING 400: Пользователь с email user@example.com уже зарегистрирован
+[2025-05-29 08:35:42] user_service:127 INFO    Создание пользователя с email user@exampl111.com
+[2025-05-29 08:35:43] user_service:149 INFO    Пользователь создан: id=12, username=string, email=user@exampl111.com
+[2025-05-29 08:37:49] user_service:106 INFO    Получение списка всех пользователей
+[2025-05-29 08:37:49] user_service:111 DEBUG   Получено 4 пользователей
+[2025-05-29 08:38:10] user_service:211 INFO    Удаление пользователя с id 8
+[2025-05-29 08:38:11] user_service:213 INFO    Пользователь удалён: id=8, username=string, email=user@example1.com
+[2025-05-29 08:38:16] user_service:211 INFO    Удаление пользователя с id 6
+[2025-05-29 08:38:16] user_service:213 INFO    Пользователь удалён: id=6, username=mercury, email=mikhailov.kn@dvfu.ru
+[2025-05-29 08:38:18] user_service:211 INFO    Удаление пользователя с id 4
+[2025-05-29 08:38:18] user_service:213 INFO    Пользователь удалён: id=4, username=string, email=user@example.com
+[2025-05-29 08:38:23] user_service:106 INFO    Получение списка всех пользователей
+[2025-05-29 08:38:23] user_service:111 DEBUG   Получено 1 пользователей
+[2025-05-29 08:39:19] user_service:106 INFO    Получение списка всех пользователей
+[2025-05-29 08:39:19] user_service:111 DEBUG   Получено 1 пользователей
+[2025-05-29 08:39:39] role_service:129 INFO    Изменение роли пользователя с id 12
+[2025-05-29 08:39:40] role_service:151 ERROR   Непредвиденная ошибка сервера: 'coroutine' object has no attribute 'role_name'
+[2025-05-29 08:42:16] role_service:129 INFO    Изменение роли пользователя с id 12
+[2025-05-29 08:42:17] role_service:152 ERROR   Непредвиденная ошибка сервера: name 'rolename' is not defined
+[2025-05-29 08:42:46] role_service:129 INFO    Изменение роли пользователя с id 12
+[2025-05-29 08:42:46] role_service:134 DEBUG   Роль пользователя изменена: id=12, username=string, email=user@exampl111.com, role_id=1, role_name=ADMIN
+[2025-05-29 08:43:53] user_service:106 INFO    Получение списка всех пользователей
+[2025-05-29 08:43:54] user_service:111 DEBUG   Получено 1 пользователей
+[2025-05-29 08:44:15] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 08:44:15] role_service:32  DEBUG   Получено 3 ролей
+[2025-05-29 08:44:30] role_service:48  INFO    Получение роли с id 1
+[2025-05-29 08:44:30] role_service:53  DEBUG   Получена роль: id=1, name=ADMIN, description=Администратор системы
+[2025-05-29 08:44:35] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 08:44:35] role_service:32  DEBUG   Получено 3 ролей
+[2025-05-29 08:45:01] user_service:28  INFO    Получение пользователя с id 12
+[2025-05-29 08:45:01] user_service:34  DEBUG   Получен пользователь: id=12, username=string
