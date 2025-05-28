@@ -129,8 +129,9 @@ class RoleService:
             logger.info("Изменение роли пользователя с id %s", user_id)
             user = await self.repository.set_role(user_id, role_id, session)
             
-            rolename = await self.repository.get_by_id(role_id, session).role_name
-            logger.debug("Роль пользователя изменена: id=%s, username=%s, email=%s, role_id=%s, role_name=%s", user.id, user.username, user.email, user.role_id, rolename)
+            role = await self.repository.get_by_id(role_id, session)
+            role_name = role.role_name
+            logger.debug("Роль пользователя изменена: id=%s, username=%s, email=%s, role_id=%s, role_name=%s", user.id, user.username, user.email, user.role_id, role_name)
             return JSONResponse(status_code=status.HTTP_200_OK, content={
                 "detail": f"Роль пользователя {user.username} изменена",
                 "id": user.id,
