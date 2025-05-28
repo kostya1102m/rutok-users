@@ -15,7 +15,10 @@ import utils
 logger = logging.getLogger(__name__)
 
 class UserService:
-    def __init__(self, repository: UserRepository):
+    def __init__(
+        self,
+        repository: UserRepository
+    ):
         self.repository = repository
 
     async def get_user_by_id(
@@ -169,7 +172,12 @@ class UserService:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-    async def update_user(self, id: int, userUpdate: UserUpdate, session: AsyncSession):
+    async def update_user(
+        self,
+        id: int,
+        userUpdate: UserUpdate,
+        session: AsyncSession
+    ):
         try:
             logger.info("Обновление информации пользователя с id %s", id)
             user = await self.repository.update(id, userUpdate, session)
@@ -200,8 +208,13 @@ class UserService:
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
-        
-    async def delete_user_by_id(self, id: int, session: AsyncSession):
+    
+    
+    async def delete_user_by_id(
+        self,
+        id: int,
+        session: AsyncSession
+    ):
         try:
             logger.info("Удаление пользователя с id %s", id)
             user = await self.repository.delete(id, session)
@@ -231,7 +244,11 @@ class UserService:
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
         
 
-    async def ban_user_by_id(self, id: int, session: AsyncSession):
+    async def ban_user_by_id(
+        self,
+        id: int,
+        session: AsyncSession
+    ):
         try:
             logger.info("Блокировка пользователя с id %s", id)
             user = await self.repository.ban(id, session)
