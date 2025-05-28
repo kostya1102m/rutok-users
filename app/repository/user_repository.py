@@ -66,10 +66,11 @@ class UserRepository:
         if user is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {id} не найден")    
         update_data = userUpdate.model_dump(exclude_unset=True)
-        # if "email" in update_data:
-        #     existing_user = await self.get_user_by_email(update_data["email"], session)
-        #     if existing_user and existing_user.id != id:
-        #         raise HTTPException(status_code=400, detail="Email уже зарегистрирован")
+        
+        if "email" in update_data:
+            existing_user = await self.get_by_email(update_data["email"], session)
+            if existing_user and existing_user.id != id:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Этот email уже занят")
         
         for key, value in update_data.items():
             setattr(user, key, value)
