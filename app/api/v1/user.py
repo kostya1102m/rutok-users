@@ -4,7 +4,7 @@ from starlette import status
 
 from services.user_service import UserService
 from repository.user_repository import UserRepository
-from models.user import UserRegister, UserSchema
+from models.user import UserRegister, UserSchema, UserUpdate
 from database import get_db
 
 router = APIRouter(
@@ -71,3 +71,12 @@ async def ban_user_by_id(
     user_service: UserService = Depends(get_user_service)
 ):
     return await user_service.ban_user_by_id(id, session)
+
+@router.patch("/update/{id}")
+async def update_user(
+    id: int,
+    userUpdate: UserUpdate,
+    session: AsyncSession = Depends(get_db),
+    user_service: UserService = Depends(get_user_service)
+):
+    return await user_service.update_user(id, userUpdate, session)
