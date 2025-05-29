@@ -250,3 +250,33 @@ WHERE roles.id = $1::INTEGER]
 [2025-05-29 08:44:35] role_service:32  DEBUG   Получено 3 ролей
 [2025-05-29 08:45:01] user_service:28  INFO    Получение пользователя с id 12
 [2025-05-29 08:45:01] user_service:34  DEBUG   Получен пользователь: id=12, username=string
+[2025-05-29 09:11:25] user_service:106 INFO    Получение списка всех пользователей
+[2025-05-29 09:11:25] user_service:111 DEBUG   Получено 1 пользователей
+[2025-05-29 09:11:45] user_service:175 INFO    Обновление информации пользователя с id 1
+[2025-05-29 09:11:45] user_service:181 WARNING 404: Пользователь с id 1 не найден
+[2025-05-29 09:11:52] user_service:175 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:11:52] user_service:177 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:16:55] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:16:55] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:16:55] user_service:195 ERROR   Непредвиденная ошибка сервера: You must set the config attribute `from_attributes=True` to use from_orm
+[2025-05-29 09:17:31] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:17:31] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:17:31] user_service:194 ERROR   Непредвиденная ошибка сервера: Object of type User is not JSON serializable
+[2025-05-29 09:21:38] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:21:39] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:21:39] user_service:197 ERROR   Непредвиденная ошибка сервера: You must set the config attribute `from_attributes=True` to use from_orm
+[2025-05-29 09:22:35] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:22:36] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:22:36] user_service:197 ERROR   Непредвиденная ошибка сервера: You must set the config attribute `from_attributes=True` to use from_orm
+[2025-05-29 09:23:41] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:23:41] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:23:41] user_service:197 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserSchema
+  Input should be a valid dictionary or instance of UserSchema [type=model_type, input_value=<db.tables.User object at 0x00000258FE562E40>, input_type=User]
+    For further information visit https://errors.pydantic.dev/2.11/v/model_type
+[2025-05-29 09:28:31] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:28:31] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 09:28:31] user_service:197 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserSchema
+  Input should be a valid dictionary or instance of UserSchema [type=model_type, input_value=<db.tables.User object at 0x0000016CAE6B6E40>, input_type=User]
+    For further information visit https://errors.pydantic.dev/2.11/v/model_type
+[2025-05-29 09:29:54] user_service:174 INFO    Обновление информации пользователя с id 12
+[2025-05-29 09:29:54] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
