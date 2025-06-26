@@ -280,3 +280,13 @@ WHERE roles.id = $1::INTEGER]
     For further information visit https://errors.pydantic.dev/2.11/v/model_type
 [2025-05-29 09:29:54] user_service:174 INFO    Обновление информации пользователя с id 12
 [2025-05-29 09:29:54] user_service:176 INFO    Информация обновлена: id=12, username=string, email=user@example.com
+[2025-05-29 12:00:21] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 12:00:22] user_service:113 DEBUG   Получено 1 пользователей
+[2025-05-29 12:01:51] user_service:129 INFO    Создание пользователя с email rodohleb.vi@dvfu.com
+[2025-05-29 12:01:52] user_service:151 INFO    Пользователь создан: id=13, username=Vlados, email=rodohleb.vi@dvfu.com
+[2025-05-29 12:02:10] user_service:253 INFO    Блокировка пользователя с id 13
+[2025-05-29 12:02:10] user_service:255 INFO    Пользователь заблокирован: id=13, username=Vlados, email=rodohleb.vi@dvfu.com
+[2025-05-29 13:07:15] user_service:104 INFO    Получение списка всех пользователей
+[2025-05-29 13:07:49] user_service:104 INFO    Получение списка всех пользователей
+[2025-05-29 13:29:22] user_service:104 INFO    Получение списка всех пользователей
+[2025-05-29 13:58:01] user_service:104 INFO    Получение списка всех пользователей

@@ -1,0 +1,180 @@
+[2025-05-29 13:36:27] user_service:219 INFO    Удаление пользователя с id 10000000000000000
+[2025-05-29 13:36:28] user_service:239 ERROR   Недопустимое значение : id=10000000000000000
+[2025-05-29 13:38:29] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 13:38:30] user_service:164 WARNING 400: Пользователь с email user@example.com уже зарегистрирован
+[2025-05-29 13:38:37] user_service:129 INFO    Создание пользователя с email user@exampl2222e.com
+[2025-05-29 13:38:37] user_service:151 INFO    Пользователь создан: id=15, username=fdsfds, email=user@exampl2222e.com
+[2025-05-29 13:45:22] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:45:22] user_service:113 DEBUG   Получено 3 пользователей
+[2025-05-29 13:50:20] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:50:20] user_service:113 DEBUG   Получено 3 пользователей
+[2025-05-29 13:56:43] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:56:45] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 13:56:59] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:57:01] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 13:57:03] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:57:05] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 13:57:42] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:57:45] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 13:57:50] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 13:57:53] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 14:24:17] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 14:24:19] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 14:25:49] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 14:25:52] user_service:120 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-05-29 14:30:54] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 14:30:55] user_service:113 DEBUG   Получено 3 пользователей
+[2025-05-29 14:31:04] user_service:219 INFO    Удаление пользователя с id 12
+[2025-05-29 14:31:04] user_service:221 INFO    Пользователь удалён: id=12, username=string, email=user@example.com
+[2025-05-29 14:31:08] user_service:219 INFO    Удаление пользователя с id 13
+[2025-05-29 14:31:08] user_service:221 INFO    Пользователь удалён: id=13, username=Vlados, email=rodohleb.vi@dvfu.com
+[2025-05-29 14:31:12] user_service:219 INFO    Удаление пользователя с id 15
+[2025-05-29 14:31:12] user_service:221 INFO    Пользователь удалён: id=15, username=fdsfds, email=user@exampl2222e.com
+[2025-05-29 14:31:18] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 14:31:18] user_service:113 DEBUG   Получено 0 пользователей
+[2025-05-29 14:31:27] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 14:31:28] role_service:32  DEBUG   Получено 3 ролей
+[2025-05-29 14:31:35] role_service:101 INFO    Удаление роли с id 1
+[2025-05-29 14:31:35] role_service:103 DEBUG   Роль удалена: id=1, name=ADMIN, description=Администратор системы
+[2025-05-29 14:31:39] role_service:101 INFO    Удаление роли с id 5
+[2025-05-29 14:31:39] role_service:103 DEBUG   Роль удалена: id=5, name=User, description=Пользователь системы
+[2025-05-29 14:31:43] role_service:101 INFO    Удаление роли с id 6
+[2025-05-29 14:31:43] role_service:103 DEBUG   Роль удалена: id=6, name=Moderator, description=Модератор системы
+[2025-05-29 14:32:07] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 14:32:07] user_service:164 WARNING 400: Пользователь с email user@example.com уже зарегистрирован
+[2025-05-29 14:32:18] user_service:83  INFO    Получение пользователя с email user@example.com
+[2025-05-29 14:32:18] user_service:86  WARNING Пользователь с email user@example.com не найден
+[2025-05-29 14:48:22] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 14:48:22] user_service:113 DEBUG   Получено 0 пользователей
+[2025-05-29 14:48:27] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 14:48:27] role_service:32  DEBUG   Получено 0 ролей
+[2025-05-29 14:48:51] role_service:73  INFO    Создание роли
+[2025-05-29 14:48:51] role_service:75  DEBUG   Роль создана: id=1, name=Admin, description=Администратор системы
+[2025-05-29 14:49:38] role_service:73  INFO    Создание роли
+[2025-05-29 14:49:38] role_service:75  DEBUG   Роль создана: id=2, name=User, description=Обычный пользователь
+[2025-05-29 14:49:47] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 14:49:47] user_service:113 DEBUG   Получено 0 пользователей
+[2025-05-29 14:49:50] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 14:49:50] role_service:32  DEBUG   Получено 2 ролей
+[2025-05-29 14:50:08] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 14:50:09] user_service:172 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserCreate
+role_id
+  Field required [type=missing, input_value={'username': 'string', 'e...jUHrxipkjFJ5xA8NqBosym'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+[2025-05-29 15:02:43] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:02:44] user_service:172 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserCreate
+role_id
+  Field required [type=missing, input_value={'username': 'string', 'e...OmwAGdypus3HPcVOvbC6Gu'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+[2025-05-29 15:02:49] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 15:02:49] user_service:113 DEBUG   Получено 0 пользователей
+[2025-05-29 15:02:53] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 15:02:53] role_service:32  DEBUG   Получено 2 ролей
+[2025-05-29 15:03:13] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:03:14] user_service:172 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserCreate
+role_id
+  Field required [type=missing, input_value={'username': 'string', 'e...SNLak2DIgPKNfmTtIJp0C.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+[2025-05-29 15:03:34] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:03:34] user_service:172 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserCreate
+role_id
+  Field required [type=missing, input_value={'username': 'string', 'e...8FIkg3/AKv1JEWbBocFe2O'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+[2025-05-29 15:06:34] user_service:129 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:06:35] user_service:172 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserCreate
+role_id
+  Field required [type=missing, input_value={'username': 'string', 'e...g6v/riqTnO21HbAx2/TI.m'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+[2025-05-29 15:06:50] user_service:108 INFO    Получение списка всех пользователей
+[2025-05-29 15:06:50] user_service:113 DEBUG   Получено 0 пользователей
+[2025-05-29 15:07:01] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 15:07:01] role_service:32  DEBUG   Получено 2 ролей
+[2025-05-29 15:22:27] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-29 15:22:28] user_service:114 DEBUG   Получено 0 пользователей
+[2025-05-29 15:22:33] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 15:22:33] role_service:32  DEBUG   Получено 2 ролей
+[2025-05-29 15:22:54] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:22:54] user_service:153 INFO    Пользователь создан: id=17, username=string, email=user@example.com
+[2025-05-29 15:23:04] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-29 15:23:04] user_service:114 DEBUG   Получено 1 пользователей
+[2025-05-29 15:28:16] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-29 15:28:16] user_service:114 DEBUG   Получено 1 пользователей
+[2025-05-29 15:29:02] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-29 15:29:02] user_service:114 DEBUG   Получено 1 пользователей
+[2025-05-29 15:30:02] role_service:101 INFO    Удаление роли с id 1
+[2025-05-29 15:30:02] role_service:103 DEBUG   Роль удалена: id=1, name=Admin, description=Администратор системы
+[2025-05-29 15:30:07] role_service:101 INFO    Удаление роли с id 2
+[2025-05-29 15:30:24] user_service:224 INFO    Удаление пользователя с id 17
+[2025-05-29 15:30:24] user_service:226 INFO    Пользователь удалён: id=17, username=string, email=user@example.com
+[2025-05-29 15:30:29] role_service:101 INFO    Удаление роли с id 2
+[2025-05-29 15:30:29] role_service:103 DEBUG   Роль удалена: id=2, name=User, description=Обычный пользователь
+[2025-05-29 15:30:47] role_service:73  INFO    Создание роли
+[2025-05-29 15:30:47] role_service:75  DEBUG   Роль создана: id=1, name=ADMIN, description=
+[2025-05-29 15:30:59] role_service:73  INFO    Создание роли
+[2025-05-29 15:31:00] role_service:75  DEBUG   Роль создана: id=2, name=USER, description=
+[2025-05-29 15:32:14] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:32:14] user_service:177 ERROR   Непредвиденная ошибка сервера: 1 validation error for UserCreate
+role_id
+  Input should be a valid integer [type=int_type, input_value=<app.db.tables.Role object at 0x0000027D0AE76210>, input_type=Role]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_type
+[2025-05-29 15:33:31] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:33:32] user_service:177 ERROR   Непредвиденная ошибка сервера: 'coroutine' object has no attribute 'id'
+[2025-05-29 15:37:03] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:37:03] user_service:177 ERROR   Непредвиденная ошибка сервера: 'coroutine' object has no attribute 'id'
+[2025-05-29 15:38:00] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-29 15:38:01] user_service:157 INFO    Пользователь создан: id=18, username=string, email=user@example.com
+[2025-05-29 15:38:13] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-29 15:38:13] user_service:114 DEBUG   Получено 1 пользователей
+[2025-05-29 15:38:32] role_service:27  INFO    Получение списка всех ролей
+[2025-05-29 15:38:32] role_service:32  DEBUG   Получено 2 ролей
+[2025-05-29 15:38:58] user_service:31  INFO    Получение пользователя с id 18
+[2025-05-29 15:38:58] user_service:37  DEBUG   Получен пользователь: id=18, username=string
+[2025-05-29 15:39:03] user_service:31  INFO    Получение пользователя с id 17
+[2025-05-29 15:39:03] user_service:34  WARNING Пользователь с id 17 не найден
+[2025-05-29 15:39:08] user_service:31  INFO    Получение пользователя с id 18
+[2025-05-29 15:39:08] user_service:37  DEBUG   Получен пользователь: id=18, username=string
+[2025-05-29 15:39:24] role_service:101 INFO    Удаление роли с id 2
+[2025-05-29 15:39:32] role_service:101 INFO    Удаление роли с id 2000000000000000000000000000000
+[2025-05-29 15:39:32] role_service:115 ERROR   Недопустимое значение : id=2000000000000000000000000000000
+[2025-05-29 15:44:00] role_service:129 INFO    Изменение роли пользователя с id 18
+[2025-05-29 15:44:00] role_service:134 DEBUG   Роль пользователя изменена: id=18, username=string, email=user@example.com, role_id=2, role_name=USER
+[2025-05-29 15:44:06] role_service:129 INFO    Изменение роли пользователя с id 18
+[2025-05-29 15:44:06] role_service:134 DEBUG   Роль пользователя изменена: id=18, username=string, email=user@example.com, role_id=1, role_name=ADMIN
+[2025-05-29 15:44:16] role_service:101 INFO    Удаление роли с id 2
+[2025-05-29 15:44:16] role_service:103 DEBUG   Роль удалена: id=2, name=USER, description=
+[2025-05-29 15:44:25] role_service:101 INFO    Удаление роли с id 3
+[2025-05-30 06:10:28] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-30 06:10:28] user_service:114 DEBUG   Получено 1 пользователей
+[2025-05-30 06:10:39] user_service:31  INFO    Получение пользователя с id 17
+[2025-05-30 06:10:39] user_service:34  WARNING Пользователь с id 17 не найден
+[2025-05-30 06:10:44] user_service:31  INFO    Получение пользователя с id 18
+[2025-05-30 06:10:44] user_service:37  DEBUG   Получен пользователь: id=18, username=string
+[2025-05-30 06:11:03] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-30 06:11:04] user_service:170 WARNING 404: Роль с именем USER не найдена
+[2025-05-30 06:11:14] role_service:27  INFO    Получение списка всех ролей
+[2025-05-30 06:11:14] role_service:32  DEBUG   Получено 1 ролей
+[2025-05-30 06:12:03] role_service:73  INFO    Создание роли
+[2025-05-30 06:12:03] role_service:75  DEBUG   Роль создана: id=2, name=USER, description=
+[2025-05-30 06:12:09] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-30 06:12:10] user_service:170 WARNING 400: Пользователь с email user@example.com уже зарегистрирован
+[2025-05-30 06:12:31] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-30 06:12:31] user_service:170 WARNING 400: Пользователь с email user@example.com уже зарегистрирован
+[2025-05-30 06:13:46] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-30 06:14:08] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-30 06:14:09] user_service:170 ERROR   Пользователь с email user@example.com уже зарегистрирован
+[2025-05-30 06:19:47] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-05-30 06:19:48] user_service:170 ERROR   Пользователь с email user@example.com уже зарегистрирован
+[2025-05-30 06:20:03] user_service:109 INFO    Получение списка всех пользователей
+[2025-05-30 06:20:03] user_service:114 DEBUG   Получено 1 пользователей
+[2025-05-30 06:20:14] user_service:31  INFO    Получение пользователя с id 200000000000000000000000000000000000000000
+[2025-05-30 06:20:14] user_service:44  ERROR   Недопустимое значение : id=200000000000000000000000000000000000000000
+[2025-05-30 06:20:44] user_service:58  INFO    Получение пользователя с username string
+[2025-05-30 06:20:44] user_service:64  DEBUG   Получен пользователь: id=18, username=string
+[2025-06-26 21:49:05] user_service:109 INFO    Получение списка всех пользователей
+[2025-06-26 21:49:06] user_service:114 DEBUG   Получено 1 пользователей
+[2025-06-26 21:49:18] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-06-26 21:49:18] user_service:170 ERROR   Пользователь с email user@example.com уже зарегистрирован
+[2025-06-26 21:49:26] user_service:130 INFO    Создание пользователя с email user@examp111le.com
+[2025-06-26 21:49:26] user_service:157 INFO    Пользователь создан: id=25, username=string, email=user@examp111le.com
+[2025-06-26 21:56:38] user_service:130 INFO    Создание пользователя с email user@examp1211le.com
+[2025-06-26 21:56:38] user_service:157 INFO    Пользователь создан: id=26, username=string, email=user@examp1211le.com
