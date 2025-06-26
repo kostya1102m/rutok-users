@@ -2,7 +2,6 @@ from pydantic import BaseModel, EmailStr, Field, field_validator, validate_email
 from typing import Optional
 from datetime import datetime
 
-
 class UserSchema(BaseModel):
     id: int
     banned: bool
@@ -13,30 +12,35 @@ class UserSchema(BaseModel):
     created_at: datetime
     updated_at: Optional[datetime] = None
     
+class UserAuth(BaseModel):
+    username: Optional[str] = Field(None, min_length=2, max_length=30)
+    email: Optional[EmailStr] = None
+    hashed_password: str
+    
 class UserRegister(BaseModel):
     username: str = Field(..., min_length=2, max_length=30)
     email: EmailStr
-    password: str
+    hashed_password: str
     
     @field_validator('email')
     @staticmethod
     def email_validation(cls, value):
         return validate_email(value)[1]
     
-    @field_validator('password')
-    @staticmethod
-    def password_validator(cls, value):
-        if len(value) < 8:
-            raise ValueError("Пароль должен содержать не менее 8 символов")
-        if not any(char.isdigit() for char in value):
-            raise ValueError("Пароль должен содержать хотя бы одну цифру")
-        if not any(char.isalpha() for char in value):
-            raise ValueError("Пароль должен содержать хотя бы одну букву")
-        if not any(char.isupper() for char in value):
-            raise ValueError("Пароль должен содержать хотя бы одну заглавную букву")
-        if not any(char in "!@#$%^&*()-_+=" for char in value):
-            raise ValueError("Пароль должен содержать хотя бы один специальный символ (!@#$%^&*()-_+=)")
-        return value
+    # @field_validator('password')
+    # @staticmethod
+    # def password_validator(cls, value):
+    #     if len(value) < 8:
+    #         raise ValueError("Пароль должен содержать не менее 8 символов")
+    #     if not any(char.isdigit() for char in value):
+    #         raise ValueError("Пароль должен содержать хотя бы одну цифру")
+    #     if not any(char.isalpha() for char in value):
+    #         raise ValueError("Пароль должен содержать хотя бы одну букву")
+    #     if not any(char.isupper() for char in value):
+    #         raise ValueError("Пароль должен содержать хотя бы одну заглавную букву")
+    #     if not any(char in "!@#$%^&*()-_+=" for char in value):
+    #         raise ValueError("Пароль должен содержать хотя бы один специальный символ (!@#$%^&*()-_+=)")
+    #     return value
 
     @field_validator('username')
     @staticmethod
@@ -54,7 +58,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     hash_password: str
     phone: Optional[str] = None
-    role_id: int = 5
+    role_id: int
     created_at: datetime = datetime.now()
 
 
