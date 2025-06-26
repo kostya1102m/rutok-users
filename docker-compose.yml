@@ -1,4 +1,15 @@
 services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - database
+    networks:
+      - rutok-users-network
+
   database:
     image: postgres:latest
     environment:
@@ -7,3 +18,13 @@ services:
       POSTGRES_DB: rutok_users
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - rutok-users-network
+
+networks:
+  rutok-users-network:
+
+volumes:
+  pgdata:
