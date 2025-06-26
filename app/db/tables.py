@@ -8,7 +8,7 @@ class Base(AsyncAttrs, DeclarativeBase):
 class Role(Base):
     __tablename__ = "roles"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True)
     role_name = Column(String(10), nullable=False, unique=True)
     role_description = Column(Text, nullable=True)
 
