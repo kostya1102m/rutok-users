@@ -6,8 +6,8 @@ from starlette import status
 from starlette.responses import JSONResponse
 import logging
 
-from models.role import RoleCreate
-from repository.role_repository import RoleRepository
+from app.models.role import RoleCreate
+from app.repository.role_repository import RoleRepository
 
 
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class RoleService:
         
         except SQLAlchemyError:
             logger.error("Недопустимое значение : id=%s", id)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={id}")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={id}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -113,7 +113,7 @@ class RoleService:
         
         except SQLAlchemyError:
             logger.error("Недопустимое значение : id=%s", id)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={id}")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={id}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -146,7 +146,7 @@ class RoleService:
         except SQLAlchemyError:
             unexcepted_id = user_id if abs(user_id) > abs(role_id) else role_id
             logger.error("Недопустимое значение : id=%s", unexcepted_id)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={unexcepted_id}")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={unexcepted_id}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
