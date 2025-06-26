@@ -13,8 +13,7 @@ class UserSchema(BaseModel):
     updated_at: Optional[datetime] = None
     
 class UserAuth(BaseModel):
-    username: Optional[str] = Field(None, min_length=2, max_length=30)
-    email: Optional[EmailStr] = None
+    email: EmailStr
     hashed_password: str
     
 class UserRegister(BaseModel):
