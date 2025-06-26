@@ -5,11 +5,12 @@ from fastapi import HTTPException
 from starlette import status
 from typing import Sequence
 
-from models.role import RoleCreate
-from repository.user_repository import UserRepository
-from db.tables import Role
+from app.models.role import RoleCreate
+from app.repository.user_repository import UserRepository
+from app.db.tables import Role
 
 class RoleRepository:
+
     async def create(
         self,
         roleCreate: RoleCreate,
@@ -24,7 +25,7 @@ class RoleRepository:
         
         except IntegrityError:
             await session.rollback()
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Роль с именем {roleCreate.role_name} уже существует")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Роль с именем {roleCreate.role_name} уже существует")
 
     async def get_by_id(
         self,
@@ -33,8 +34,19 @@ class RoleRepository:
     ):
         result = await session.execute(select(Role).where(Role.id == id))
         role = result.scalars().first()
-        if not role:
+        if role is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Роль с id {id} не найдена")
+        return role
+    
+    async def get_by_name(
+        self,
+        name: str,
+        session: AsyncSession
+    ):
+        result = await session.execute(select(Role).where(Role.role_name == name))
+        role = result.scalars().first()
+        if role is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Роль с именем {name} не найдена")
         return role
     
     async def delete(
@@ -45,7 +57,7 @@ class RoleRepository:
         try:
             result = await session.execute(select(Role).where(Role.id == id))
             role = result.scalars().first()
-            if not role:
+            if role is None:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Роль с id {id} не найдена")
             await session.delete(role)
             await session.commit()
@@ -53,7 +65,7 @@ class RoleRepository:
         
         except IntegrityError:
             await session.rollback()
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Роль распределена пользователям и не может быть удалена")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Роль распределена пользователям и не может быть удалена")
     
     async def get_all(
         self,
@@ -78,4 +90,6 @@ class RoleRepository:
         await session.commit()
         await session.refresh(user)
         return user
+    
+    
     
