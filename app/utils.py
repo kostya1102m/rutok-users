@@ -14,6 +14,6 @@ def validate_password(
     hashed_password: bytes
 ) -> bool:
     return bcrypt.checkpw(
-        password=password.encode(),
+        password=password,
         hashed_password=hashed_password
 )
