@@ -5,34 +5,42 @@ from fastapi import HTTPException
 from starlette import status
 from datetime import datetime
 
-from models.user import UserCreate, UserUpdate
-from db.tables import User
+from app.models.user import UserCreate, UserUpdate
+from app.db.tables import User
 
 
 class UserRepository:
+    
+    
+    async def get_item(
+        self,
+        attribute_name: str,
+        attribute_value: str,
+        session: AsyncSession
+    ):
+        result = await session.execute(select(User).where(getattr(User, attribute_name) == attribute_value))
+        return result.scalars().first()
+    
     async def get_by_id(
         self,
         id: int,
         session: AsyncSession
     ):
-        result = await session.execute(select(User).where(User.id == id))
-        return result.scalars().first()
+        return await self.get_item("id", id, session)
 
     async def get_by_username(
         self,
         name: str,
         session: AsyncSession
     ):
-        result = await session.execute(select(User).where(User.username == name))
-        return result.scalars().first()
+        return await self.get_item("username", name, session)
     
     async def get_by_email(
         self,
         email: str,
         session: AsyncSession
     ):
-        result = await session.execute(select(User).where(User.email == email))
-        return result.scalars().first()
+        return await self.get_item("email", email, session)
 
     async def get_all(
         self,
@@ -104,13 +112,15 @@ class UserRepository:
         user.banned = True
         await session.commit()
         return user
-
-        
-
-    # async def unban(self, id, session: AsyncSession):
-    #     result = await session.execute(select(User).where(User.id == id))
-    #     user = result.scalars().first()
-    #     if not user:
-    #         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found")
-    #     user.banned = False
-    #     await session.commit()
+    
+    async def unban(
+        self,
+        id: int,
+        session: AsyncSession
+    ):
+        user = await self.get_by_id(id, session)
+        if user is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {id} не найден")
+        user.banned = False
+        await session.commit()
+        return user
