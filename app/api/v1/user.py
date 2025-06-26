@@ -2,10 +2,10 @@ from fastapi import Depends, APIRouter
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from services.user_service import UserService
-from repository.user_repository import UserRepository
-from models.user import UserRegister, UserSchema, UserUpdate
-from database import get_db
+from app.services.user_service import UserService
+from app.repository.user_repository import UserRepository
+from app.models.user import UserRegister, UserSchema, UserUpdate
+from app.database import get_db
 
 router = APIRouter(
     prefix="/users",
@@ -56,21 +56,29 @@ async def register_user(
 ):
     return await user_service.register_user(userRegister, session)
 
-@router.delete("/delete/{id}", status_code=status.HTTP_200_OK)
-async def delete_user_by_id(
-    id: int,
+@router.post("/login/", status_code=status.HTTP_200_OK)
+async def login_user(
+    
     session: AsyncSession = Depends(get_db),
     user_service: UserService = Depends(get_user_service)
 ):
-    return await user_service.delete_user_by_id(id, session)
+    pass
 
-@router.put("/ban/{id}", status_code=status.HTTP_200_OK)
+@router.patch("/ban/{id}", status_code=status.HTTP_200_OK)
 async def ban_user_by_id(
     id: int,
     session: AsyncSession = Depends(get_db),
     user_service: UserService = Depends(get_user_service)
 ):
     return await user_service.ban_user_by_id(id, session)
+
+@router.patch("/unban/{id}", status_code=status.HTTP_200_OK)
+async def unban_user_by_id(
+    id: int,
+    session: AsyncSession = Depends(get_db),
+    user_service: UserService = Depends(get_user_service)
+):
+    return await user_service.unban_user_by_id(id, session)
 
 @router.patch("/update/{id}")
 async def update_user(
@@ -80,3 +88,12 @@ async def update_user(
     user_service: UserService = Depends(get_user_service)
 ):
     return await user_service.update_user(id, userUpdate, session)
+
+
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
+async def delete_user_by_id(
+    id: int,
+    session: AsyncSession = Depends(get_db),
+    user_service: UserService = Depends(get_user_service)
+):
+    return await user_service.delete_user_by_id(id, session)

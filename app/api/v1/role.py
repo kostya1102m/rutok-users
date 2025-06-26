@@ -3,10 +3,10 @@ from starlette.responses import HTMLResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from services.role_service import RoleService
-from repository.role_repository import RoleRepository
-from models.role import RoleCreate
-from database import get_db
+from app.services.role_service import RoleService
+from app.repository.role_repository import RoleRepository
+from app.models.role import RoleCreate
+from app.database import get_db
 
 router = APIRouter(
     prefix="/roles",
@@ -41,14 +41,6 @@ async def create_role(
 ):
     return await role_service.create_role(roleCreate, session)
 
-@router.delete("/delete/{id}", status_code=status.HTTP_200_OK)
-async def delete_role_by_id(
-    id: int,
-    session: AsyncSession = Depends(get_db),
-    role_service: RoleService = Depends(get_role_service)
-):
-    return await role_service.delete_role(id, session)
-
 @router.put("/set/{user_id}/{role_id}", status_code=status.HTTP_200_OK)
 async def set_user_role(
     user_id: int,
@@ -57,3 +49,11 @@ async def set_user_role(
     role_service: RoleService = Depends(get_role_service)
 ):
     return await role_service.set_user_role(user_id, role_id, session)
+
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
+async def delete_role_by_id(
+    id: int,
+    session: AsyncSession = Depends(get_db),
+    role_service: RoleService = Depends(get_role_service)
+):
+    return await role_service.delete_role(id, session)
