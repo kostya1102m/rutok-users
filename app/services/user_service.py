@@ -6,10 +6,11 @@ from sqlalchemy import select
 from starlette import status
 from starlette.responses import JSONResponse
 
-from models.user import UserCreate, UserRegister, UserUpdate, UserSchema
-from repository.user_repository import UserRepository
-from db.tables import Role
-import utils
+from app.models.user import UserCreate, UserRegister, UserUpdate, UserAuth
+from app.repository.user_repository import UserRepository
+from app.repository.role_repository import RoleRepository
+from app.db.tables import Role
+import app.utils as utils
 
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,7 @@ class UserService:
         
         except SQLAlchemyError:
             logger.error("Недопустимое значение : id=%s", id)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : id={id}")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={id}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -68,7 +69,7 @@ class UserService:
         
         except SQLAlchemyError:
             logger.error("Недопустимое значение : username=%s", name)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : username={name}")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : username={name}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -94,7 +95,7 @@ class UserService:
         
         except SQLAlchemyError:
             logger.error("Недопустимое значение : email=%s", email)
-            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"Недопустимое значение : email={email}")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : email={email}")
         
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
@@ -122,50 +123,48 @@ class UserService:
 
     async def register_user(
         self,
-        userRegister: UserRegister,
+        user_register: UserRegister,
         session: AsyncSession
     ):
         try:
-            logger.info("Создание пользователя с email %s", userRegister.email)
+            logger.info("Создание пользователя с email %s", user_register.email)
             
-            pwd = (userRegister.password)
-            hashed_pwd = utils.hash_password(pwd)
+            #pwd = user_register.password
+            #hashed_pwd = utils.hash_password(pwd) выпилено, сразу получаю хэш
+
+            default_user_role = await RoleRepository().get_by_name("USER", session)
+            default_user_role_id = default_user_role.id
+
             
-            userCreate = UserCreate(
-                username=userRegister.username,
-                email=userRegister.email,
-                hash_password=hashed_pwd,
+            user_create = UserCreate(
+                username=user_register.username,
+                email=user_register.email,
+                hash_password=user_register.hashed_password,
+                role_id=default_user_role_id
             )
             
-            # role = await session.execute(select(Role).filter(Role.id == userCreate.role_id))
+            # role = await session.execute(select(Role).filter(Role.id == user_create.role_id))
             # role = role.scalar_one_or_none()
             
             # if role is None:
-            #     logger.warning("Роль с id %s не найдена при создании пользователя", userCreate.role_id)
+            #     logger.warning("Роль с id %s не найдена при создании пользователя", user_create.role_id)
             #     raise HTTPException(
             #         status_code=status.HTTP_400_BAD_REQUEST,
-            #         detail=f"Роль с id {userCreate.role_id} не найдена"
+            #         detail=f"Роль с id {user_create.role_id} не найдена"
             #     )
             
-            user = await self.repository.create(userCreate, session)
+            user = await self.repository.create(user_create, session)
             logger.info("Пользователь создан: id=%s, username=%s, email=%s", user.id, user.username, user.email)
             
-            return JSONResponse(
-                status_code=status.HTTP_201_CREATED,
-                content={
-                    "detail": "Пользователь создан",
-                    "id": user.id,
-                    "username": user.username,
-                    "email": user.email
-                }
-            )
+            
+            return user.id
         
         except HTTPException as e:
-            logger.warning('%s', str(e))
+            logger.error('%s', e.detail)
             raise e
         
         except SQLAlchemyError as e:
-            logger.error("Конфликт данных при создании пользователя: %s", str(e))
+            logger.error("Ошибка данных при регистрации пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                 detail=str(e))
         except Exception as e:
@@ -198,11 +197,11 @@ class UserService:
             )
         
         except HTTPException as e:
-            logger.warning('%s', str(e))
+            logger.warning('%s', e.detail)
             raise e
         
         except SQLAlchemyError as e:
-            logger.error("Конфликт данных при обновлении пользователя: %s", str(e))
+            logger.error("Ошибка данных при обновлении пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                 detail=str(e))
         except Exception as e:
@@ -232,13 +231,13 @@ class UserService:
             )
             
         except HTTPException as e:
-            logger.warning('%s', str(e))
+            logger.warning('%s', e.detail)
             raise e
         
-        except SQLAlchemyError as e:
-            logger.error("Конфликт данных при удалении пользователя: %s", str(e))
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                                detail=str(e))
+        except SQLAlchemyError:
+            logger.error("Недопустимое значение : id=%s", id)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={id}")
+        
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
@@ -264,15 +263,99 @@ class UserService:
                     }
                 }
             )
-        
+            
+
         except HTTPException as e:
-            logger.warning('%s', str(e))
+            logger.warning('%s', e.detail)
+            raise e
+        
+        except SQLAlchemyError:
+            logger.error("Недопустимое значение : id=%s", id)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={id}")
+        
+        except Exception as e:
+            logger.error("Непредвиденная ошибка сервера: %s", str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+        
+        
+    async def unban_user_by_id(
+        self,
+        id: int,
+        session: AsyncSession
+    ):
+        try:
+            logger.info("Разблокировка пользователя с id %s", id)
+            user = await self.repository.unban(id, session)
+            logger.info("Пользователь разблокирован: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "detail": "Пользователь разбанен",
+                    "user": {
+                        "id": user.id,
+                        "username": user.username,
+                        "email": user.email
+                    }
+                }
+            )
+            
+        except HTTPException as e:
+            logger.warning('%s', e.detail)
+            raise e
+        
+        except SQLAlchemyError:
+            logger.error("Недопустимое значение : id=%s", id)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Недопустимое значение : id={id}")
+        
+        except Exception as e:
+            logger.error("Непредвиденная ошибка сервера: %s", str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+        
+        
+        
+    async def authenticate_user(
+        self,
+        user_auth: UserAuth,
+        session: AsyncSession
+    ):
+        try:
+            logger.info('Аутентификация пользователя %s', user_auth.email)
+            user = await self.repository.get_by_email(user_auth.email, session)
+            if user is None:
+                logger.warning("Пользователь с email %s не найден", user_auth.email)
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с email {user_auth.email} не найден")
+            
+            if not utils.validate_password(user_auth.hashed_password, user.hash_password):
+                logger.error("Неверный пароль пользователя с email %s", user_auth.email)
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Неверный пароль пользователя с email {user_auth.email}")
+            
+            if user.banned:
+                logger.warning("Пользователь с email %s заблокирован", user_auth.email)
+                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Пользователь с email {user_auth.email} заблокирован")
+            
+            logger.info("Пользователь аутентифицирован: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content={
+                    "detail": "Пользователь аутентифицирован",
+                    "user": {
+                        "id": user.id,
+                        "username": user.username,
+                        "email": user.email
+                    }
+                }
+            )
+               
+        except HTTPException as e:
+            logger.warning('%s', e.detail)
             raise e
         
         except SQLAlchemyError as e:
-            logger.error("Конфликт данных при блокировке пользователя: %s", str(e))
+            logger.error("Ошибка данных при обновлении пользователя: %s", str(e))
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                 detail=str(e))
+        
         except Exception as e:
             logger.error("Непредвиденная ошибка сервера: %s", str(e))
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
