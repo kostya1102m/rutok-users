@@ -1,23 +1,34 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator, validate_email
+from pydantic import BaseModel, EmailStr, Field, field_validator, validate_email, ConfigDict
 from typing import Optional
 from datetime import datetime
+from app.utils import to_camel_case
 
-class UserSchema(BaseModel):
+class BaseSchema(BaseModel):
+    """Базовая схема с общими настройками"""
+    model_config = ConfigDict(
+        alias_generator=to_camel_case,
+        populate_by_name=True,
+    )
+
+class UserSchema(BaseSchema):
     id: int
     banned: bool
-    username: str
+    user_name: str
     email: EmailStr
     phone: Optional[str] = None
     role_id: int
     created_at: datetime
     updated_at: Optional[datetime] = None
+
+
+
     
-class UserAuth(BaseModel):
+class UserAuth(BaseSchema):
     email: EmailStr
     hashed_password: str
     
-class UserRegister(BaseModel):
-    username: str = Field(..., min_length=2, max_length=30)
+class UserRegister(BaseSchema):
+    user_name: str = Field(..., min_length=2, max_length=30)
     email: EmailStr
     hashed_password: str
     
@@ -41,7 +52,7 @@ class UserRegister(BaseModel):
     #         raise ValueError("Пароль должен содержать хотя бы один специальный символ (!@#$%^&*()-_+=)")
     #     return value
 
-    @field_validator('username')
+    @field_validator('user_name')
     @staticmethod
     def username_validator(cls, value):
         if not value:
@@ -52,8 +63,8 @@ class UserRegister(BaseModel):
             raise ValueError("Имя пользователя не может состоять только из цифр")
         return value
 
-class UserCreate(BaseModel):
-    username: str = Field(..., min_length=2, max_length=30)
+class UserCreate(BaseSchema):
+    user_name: str = Field(..., min_length=2, max_length=30)
     email: EmailStr
     hash_password: str
     phone: Optional[str] = None
@@ -61,8 +72,8 @@ class UserCreate(BaseModel):
     created_at: datetime = datetime.now()
 
 
-class UserUpdate(BaseModel):
-    username: Optional[str] = Field(None, min_length=2, max_length=30)
+class UserUpdate(BaseSchema):
+    user_name: Optional[str] = Field(None, min_length=2, max_length=30)
     email: Optional[EmailStr] = None
     phone: Optional[str] = Field(None, min_length=11, max_length=11)
     bio: Optional[str] = None
@@ -80,7 +91,7 @@ class UserUpdate(BaseModel):
             raise ValueError("Номер должен начинаться с 8 и содержать только цифры")
         return value
     
-    @field_validator('username')
+    @field_validator('user_name')
     @staticmethod
     def username_validator(cls, value):
         if not value:
