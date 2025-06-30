@@ -35,13 +35,13 @@ async def get_role_by_id(
 
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 async def create_role(
-    roleCreate: RoleCreate,
+    role_create: RoleCreate,
     session: AsyncSession = Depends(get_db),
     role_service: RoleService = Depends(get_role_service)
 ):
-    return await role_service.create_role(roleCreate, session)
+    return await role_service.create_role(role_create, session)
 
-@router.put("/set/{user_id}/{role_id}", status_code=status.HTTP_200_OK)
+@router.patch("/set/{user_id}/{role_id}", status_code=status.HTTP_200_OK)
 async def set_user_role(
     user_id: int,
     role_id: int,

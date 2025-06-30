@@ -178,3 +178,46 @@ role_id
 [2025-06-26 21:49:26] user_service:157 INFO    Пользователь создан: id=25, username=string, email=user@examp111le.com
 [2025-06-26 21:56:38] user_service:130 INFO    Создание пользователя с email user@examp1211le.com
 [2025-06-26 21:56:38] user_service:157 INFO    Пользователь создан: id=26, username=string, email=user@examp1211le.com
+[2025-06-26 22:36:58] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-26 22:36:58] user_service:360 ERROR   Непредвиденная ошибка сервера: argument 'password': 'str' object cannot be converted to 'PyBytes'
+[2025-06-26 22:38:12] user_service:130 INFO    Создание пользователя с email user@exam321321ple.com
+[2025-06-26 22:38:12] user_service:157 INFO    Пользователь создан: id=27, username=string, email=user@exam321321ple.com
+[2025-06-26 22:38:50] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-26 22:38:50] user_service:360 ERROR   Непредвиденная ошибка сервера: argument 'password': 'str' object cannot be converted to 'PyBytes'
+[2025-06-26 22:39:19] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-26 22:39:20] user_service:360 ERROR   Непредвиденная ошибка сервера: argument 'password': 'str' object cannot be converted to 'PyBytes'
+[2025-06-26 22:39:43] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-26 22:39:43] user_service:360 ERROR   Непредвиденная ошибка сервера: argument 'password': 'str' object cannot be converted to 'PyBytes'
+[2025-06-26 22:41:38] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-26 22:41:38] user_service:336 INFO    Пользователь аутентифицирован: id=18, username=string, email=user@example.com
+[2025-06-27 00:35:11] user_service:109 INFO    Получение списка всех пользователей
+[2025-06-27 00:35:13] user_service:121 ERROR   Непредвиденная ошибка сервера: [Errno 11001] getaddrinfo failed
+[2025-06-27 17:32:10] user_service:109 INFO    Получение списка всех пользователей
+[2025-06-27 17:32:11] user_service:114 DEBUG   Получено 4 пользователей
+[2025-06-27 17:32:32] user_service:31  INFO    Получение пользователя с id 40
+[2025-06-27 17:32:32] user_service:34  WARNING Пользователь с id 40 не найден
+[2025-06-27 17:32:37] user_service:31  INFO    Получение пользователя с id 26
+[2025-06-27 17:32:37] user_service:37  DEBUG   Получен пользователь: id=26, user_name=string
+[2025-06-27 17:32:48] user_service:218 INFO    Удаление пользователя с id 40
+[2025-06-27 17:32:48] user_service:234 WARNING Пользователь с id 40 не найден
+[2025-06-27 17:32:52] user_service:218 INFO    Удаление пользователя с id 26
+[2025-06-27 17:32:52] user_service:220 INFO    Пользователь удалён: id=26, username=string, email=user@examp1211le.com
+[2025-06-27 17:33:00] user_service:109 INFO    Получение списка всех пользователей
+[2025-06-27 17:33:00] user_service:114 DEBUG   Получено 3 пользователей
+[2025-06-27 17:33:05] user_service:31  INFO    Получение пользователя с id 26
+[2025-06-27 17:33:05] user_service:34  WARNING Пользователь с id 26 не найден
+[2025-06-27 17:40:05] user_service:130 INFO    Создание пользователя с email user@example.com
+[2025-06-27 17:40:05] user_service:163 ERROR   Пользователь с email user@example.com уже зарегистрирован
+[2025-06-27 17:40:13] user_service:109 INFO    Получение списка всех пользователей
+[2025-06-27 17:40:13] user_service:114 DEBUG   Получено 3 пользователей
+[2025-06-27 17:40:26] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-27 17:40:26] user_service:329 ERROR   Неверный пароль пользователя с email user@example.com
+[2025-06-27 17:40:26] user_service:351 WARNING Неверный пароль пользователя с email user@example.com
+[2025-06-27 17:40:32] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-27 17:40:32] user_service:329 ERROR   Неверный пароль пользователя с email user@example.com
+[2025-06-27 17:40:32] user_service:351 WARNING Неверный пароль пользователя с email user@example.com
+[2025-06-27 17:40:36] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-27 17:40:36] user_service:329 ERROR   Неверный пароль пользователя с email user@example.com
+[2025-06-27 17:40:36] user_service:351 WARNING Неверный пароль пользователя с email user@example.com
+[2025-06-27 17:41:09] user_service:322 INFO    Аутентификация пользователя user@example.com
+[2025-06-27 17:41:09] user_service:336 INFO    Пользователь аутентифицирован: id=18, user_name=string, email=user@example.com

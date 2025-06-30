@@ -11,9 +11,11 @@ def hash_password(
 
 def validate_password(
     password: str,
-    hashed_password: bytes
+    hashed_password: str
 ) -> bool:
-    return bcrypt.checkpw(
-        password=password,
-        hashed_password=hashed_password
-)
+    return password == hashed_password
+
+
+def to_camel_case(string: str) -> str:
+    parts = string.split('_')
+    return parts[0] + ''.join(word.capitalize() for word in parts[1:])

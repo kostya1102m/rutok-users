@@ -33,7 +33,7 @@ class UserRepository:
         name: str,
         session: AsyncSession
     ):
-        return await self.get_item("username", name, session)
+        return await self.get_item("user_name", name, session)
     
     async def get_by_email(
         self,
@@ -51,29 +51,29 @@ class UserRepository:
 
     async def create(
         self,
-        userCreate: UserCreate,
+        user_create: UserCreate,
         session: AsyncSession
     ):
         try:
-            new_user = User(**userCreate.model_dump())
+            new_user = User(**user_create.model_dump())
             session.add(new_user)
             await session.commit()
             await session.refresh(new_user)
             return new_user
         except IntegrityError:
             await session.rollback()
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Пользователь с email {userCreate.email} уже зарегистрирован")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Пользователь с email {user_create.email} уже зарегистрирован")
     
     async def update(
         self,
         id: int,
-        userUpdate: UserUpdate,
+        user_update: UserUpdate,
         session: AsyncSession
     ):
         user = await self.get_by_id(id, session)
         if user is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {id} не найден")    
-        update_data = userUpdate.model_dump(exclude_unset=True)
+        update_data = user_update.model_dump(exclude_unset=True)
         
         if "email" in update_data:
             existing_user = await self.get_by_email(update_data["email"], session)

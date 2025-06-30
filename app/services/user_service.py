@@ -34,7 +34,7 @@ class UserService:
                 logger.warning("Пользователь с id %s не найден", id)
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с id {id} не найден")
             
-            logger.debug("Получен пользователь: id=%s, username=%s", user.id, user.username)
+            logger.debug("Получен пользователь: id=%s, user_name=%s", user.id, user.user_name)
             return user
         
         except HTTPException as e:
@@ -55,13 +55,13 @@ class UserService:
         session: AsyncSession
     ):
         try:
-            logger.info("Получение пользователя с username %s", name)
+            logger.info("Получение пользователя с user_name %s", name)
             user = await self.repository.get_by_username(name, session)
             if user is None:
-                logger.warning("Пользователь с username %s не найден", name)
+                logger.warning("Пользователь с user_name %s не найден", name)
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с username {name} не найден")
             
-            logger.debug("Получен пользователь: id=%s, username=%s", user.id, user.username)
+            logger.debug("Получен пользователь: id=%s, user_name=%s", user.id, user.user_name)
             return user
         
         except HTTPException as e:
@@ -87,7 +87,7 @@ class UserService:
                 logger.warning("Пользователь с email %s не найден", email)
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Пользователь с email {email} не найден")
             
-            logger.debug("Получен пользователь: id=%s, username=%s", user.id, user.username)
+            logger.debug("Получен пользователь: id=%s, username=%s", user.id, user.user_name)
             return user
         
         except HTTPException as e:
@@ -137,7 +137,7 @@ class UserService:
 
             
             user_create = UserCreate(
-                username=user_register.username,
+                user_name=user_register.user_name,
                 email=user_register.email,
                 hash_password=user_register.hashed_password,
                 role_id=default_user_role_id
@@ -154,7 +154,7 @@ class UserService:
             #     )
             
             user = await self.repository.create(user_create, session)
-            logger.info("Пользователь создан: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Пользователь создан: id=%s, username=%s, email=%s", user.id, user.user_name, user.email)
             
             
             return user.id
@@ -180,15 +180,15 @@ class UserService:
         try:
             logger.info("Обновление информации пользователя с id %s", id)
             user = await self.repository.update(id, userUpdate, session)
-            logger.info("Информация обновлена: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Информация обновлена: id=%s, username=%s, email=%s", user.id, user.user_name, user.email)
         
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
                 content={
                     "detail": "Информация обновлена",
                     "user": {
-                        "id": user.id,
-                        "username": user.username,
+                        "userId": user.id,
+                        "userName": user.user_name,
                         "email": user.email,
                         "phone": user.phone,
                         "bio": user.bio
@@ -217,14 +217,14 @@ class UserService:
         try:
             logger.info("Удаление пользователя с id %s", id)
             user = await self.repository.delete(id, session)
-            logger.info("Пользователь удалён: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Пользователь удалён: id=%s, username=%s, email=%s", user.id, user.user_name, user.email)
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
                 content={
                     "detail": "Пользователь удалён",
                     "user": {
-                        "id": user.id,
-                        "username": user.username,
+                        "userId": user.id,
+                        "userName": user.user_name,
                         "email": user.email
                     }
                 }
@@ -251,14 +251,14 @@ class UserService:
         try:
             logger.info("Блокировка пользователя с id %s", id)
             user = await self.repository.ban(id, session)
-            logger.info("Пользователь заблокирован: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Пользователь заблокирован: id=%s, username=%s, email=%s", user.id, user.user_name, user.email)
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
                 content={
                     "detail": "Пользователь забанен",
                     "user": {
-                        "id": user.id,
-                        "username": user.username,
+                        "userId": user.id,
+                        "userName": user.user_name,
                         "email": user.email
                     }
                 }
@@ -286,14 +286,14 @@ class UserService:
         try:
             logger.info("Разблокировка пользователя с id %s", id)
             user = await self.repository.unban(id, session)
-            logger.info("Пользователь разблокирован: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Пользователь разблокирован: id=%s, username=%s, email=%s", user.id, user.user_name, user.email)
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
                 content={
                     "detail": "Пользователь разбанен",
                     "user": {
-                        "id": user.id,
-                        "username": user.username,
+                        "userId": user.id,
+                        "userName": user.user_name,
                         "email": user.email
                     }
                 }
@@ -333,15 +333,15 @@ class UserService:
                 logger.warning("Пользователь с email %s заблокирован", user_auth.email)
                 raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Пользователь с email {user_auth.email} заблокирован")
             
-            logger.info("Пользователь аутентифицирован: id=%s, username=%s, email=%s", user.id, user.username, user.email)
+            logger.info("Пользователь аутентифицирован: id=%s, user_name=%s, email=%s", user.id, user.user_name, user.email)
             
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
                 content={
                     "detail": "Пользователь аутентифицирован",
                     "user": {
-                        "id": user.id,
-                        "username": user.username,
+                        "userId": user.id,
+                        "userName": user.user_name,
                         "email": user.email
                     }
                 }

@@ -13,11 +13,11 @@ class RoleRepository:
 
     async def create(
         self,
-        roleCreate: RoleCreate,
+        role_create: RoleCreate,
         session: AsyncSession
     ):
         try:
-            new_role = Role(**roleCreate.model_dump())
+            new_role = Role(**role_create.model_dump())
             session.add(new_role)
             await session.commit()
             await session.refresh(new_role)
@@ -25,7 +25,7 @@ class RoleRepository:
         
         except IntegrityError:
             await session.rollback()
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Роль с именем {roleCreate.role_name} уже существует")
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Роль с именем {role_create.role_name} уже существует")
 
     async def get_by_id(
         self,

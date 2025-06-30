@@ -76,7 +76,7 @@ class RoleService:
             return JSONResponse(status_code=status.HTTP_201_CREATED, content={
                 "detail": "Роль создана",
                 "id": role.id,
-                "name": role.role_name,
+                "roleName": role.role_name,
                 "description": role.role_description
             })
         
@@ -104,7 +104,7 @@ class RoleService:
             return JSONResponse(status_code=status.HTTP_200_OK, content={
                 "detail": "Роль удалена",
                 "id": role.id,
-                "name": role.role_name,
+                "roleName": role.role_name,
                 "description": role.role_description
             })
         
@@ -131,13 +131,13 @@ class RoleService:
             
             role = await self.repository.get_by_id(role_id, session)
             role_name = role.role_name
-            logger.debug("Роль пользователя изменена: id=%s, username=%s, email=%s, role_id=%s, role_name=%s", user.id, user.username, user.email, user.role_id, role_name)
+            logger.debug("Роль пользователя изменена: id=%s, user_name=%s, email=%s, role_id=%s, role_name=%s", user.id, user.user_name, user.email, user.role_id, role_name)
             return JSONResponse(status_code=status.HTTP_200_OK, content={
-                "detail": f"Роль пользователя {user.username} изменена",
-                "id": user.id,
-                "username": user.username,
+                "detail": f"Роль пользователя {user.user_name} изменена",
+                "userId": user.id,
+                "userName": user.user_name,
                 "email": user.email,
-                "role_id": user.role_id
+                "roleId": user.role_id
             })
             
         except HTTPException as e:

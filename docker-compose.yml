@@ -1,10 +1,17 @@
 services:
   app:
     build: .
-    ports:
-      - "8000:8000"
+    image: kostyam1102/rutok-users-app:latest
     env_file:
       - .env
+    environment:
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8000
+      - DATABASE_URL=postgresql+asyncpg://postgres:1102@database:5432/rutok_users
+      - DB_USER=postgres
+      - DB_PASSWORD=1102
+    ports: 
+      - "8000:8000"
     depends_on:
       - database
     networks:

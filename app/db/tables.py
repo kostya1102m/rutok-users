@@ -19,7 +19,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     bio = Column(Text, nullable=True)
-    username = Column(String(30), nullable=False)
+    user_name = Column(String(30), nullable=False)
     banned = Column(Boolean, nullable=False, default=False)
     avatar = Column(LargeBinary, nullable=True)
     phone = Column(String(11), nullable=True)
